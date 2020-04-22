@@ -6,4 +6,5 @@ Projekt jsem si vybral z důvodu, že mě baví stavět takové věci a dávat t
 
 https://www.instructables.com/id/DIY-Digital-Clock-With-7-Segment-LED-Display/     
 podobné návody
+
 https://electronics-project-hub.com/arduino-7-segment-display-clock-with-and-without-rtc/
