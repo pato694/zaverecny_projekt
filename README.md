@@ -9,3 +9,12 @@ https://magazine.odroid.com/article/home-assistant-a-diy-smart-light-project/
 podobné návody
 
 https://learn.sparkfun.com/tutorials/using-home-assistant-to-expand-your-home-automations/all
+
+# Pracovní postup: 
+
+- objednání součástek (do 20.9.)
+- náčrt schéma
+- sestavení a průběžné psaní dokumentace
+- ladění chyb a dokumentace 
+- vytvoření prezentace 
+
