@@ -10,7 +10,7 @@ podobné návody
 
 https://learn.sparkfun.com/tutorials/using-home-assistant-to-expand-your-home-automations/all
 
-# Pracovní postup: 
+# Pracovní postup
 
 - objednání součástek (do 20.9.)
 - náčrt schéma
