@@ -21,7 +21,7 @@ https://www.viralsciencecreativity.com/post/esp32-cam-motion-alert-send-image-to
 
 # Pracovní postup
 
-- objednání součástek (hotovo)
+- objednání součástek ✔
 - náčrt schéma
 - sestavení a průběžné psaní dokumentace 
 - ladění chyb a dokumentace 
