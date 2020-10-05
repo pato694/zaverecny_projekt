@@ -20,6 +20,7 @@ podobné návody
 https://www.viralsciencecreativity.com/post/esp32-cam-motion-alert-send-image-to-telegram
 
 # Pracovní postup
+# Momentálně čekám na dodání součástek
 
 - objednání součástek ✔
 - náčrt schéma
