@@ -26,4 +26,4 @@ https://www.viralsciencecreativity.com/post/esp32-cam-motion-alert-send-image-to
 - náčrt schéma
 - sestavení a průběžné psaní dokumentace 
 - ladění chyb a dokumentace 
-- vytvoření prezentace 
+- vytvoření prezentace  
