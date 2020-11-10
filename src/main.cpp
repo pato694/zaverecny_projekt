@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include "soc/soc.h"
@@ -9,17 +8,15 @@
 #include <Wire.h>
 #include "SparkFunBME280.h"
 
-// Replace with your network credentials
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+// Wifi connection
+const char* ssid = "DOHNALM";
+const char* password = "23.09.1972Md.";
 
-// Use @myidbot to find out the chat ID of an individual or a group
-// Also note that you need to click "start" on a bot before it can
-// message you
-String chatId = "XXXXXXXXXX";
+// Id to chat with bot
+String chatId = "1482264689";
 
 // Initialize Telegram BOT
-String BOTtoken = "XXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+String BOTtoken = "1463258443:AAG3CZn8XDMQs7bqG45iL472KoZsfylVCJY";
 
 bool sendPhoto = false;
 
@@ -68,16 +65,15 @@ String sendPhotoTelegram();
 String getReadings(){
   float temperature, humidity;
   temperature = bme.readTempC();
-  //temperature = bme.readTempF();
   humidity = bme.readFloatHumidity();
-  String message = "Temperature: " + String(temperature) + " ºC \n";
-  message += "Humidity: " + String (humidity) + " % \n";
+  String message = "Teplota: " + String(temperature) + " ºC \n";
+  message += "Vlhkost: " + String (humidity) + " % \n";
   return message;
 }
 
 // Indicates when motion is detected
 static void IRAM_ATTR detectsMovement(void * arg){
-  //Serial.println("MOTION DETECTED!!!");
+  Serial.println("Zachycen pohyb.");
   motionDetected = true;
 }
 
