@@ -20,10 +20,10 @@ podobné návody
 https://www.viralsciencecreativity.com/post/esp32-cam-motion-alert-send-image-to-telegram
 
 # Pracovní postup
-# Momentálně čekám na dodání součástek
+# Momentálně mi chybí už jen FTDI programmer
 
-- objednání součástek ✔
-- náčrt schéma
+- objednání součástek
+- náčrt schéma 
 - sestavení a průběžné psaní dokumentace 
 - ladění chyb a dokumentace 
 - vytvoření prezentace  
