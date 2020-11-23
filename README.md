@@ -20,7 +20,7 @@ podobné návody
 https://www.viralsciencecreativity.com/post/esp32-cam-motion-alert-send-image-to-telegram
 
 # Pracovní postup
-# Momentálně mi chybí už jen FTDI programmer
+# Projekt dokončen, chybí dokumentace a prezentace
 
 - objednání součástek
 - náčrt schéma 
