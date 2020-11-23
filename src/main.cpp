@@ -174,7 +174,7 @@ void loop() {
   }
 
   if(motionDetected){
-    bot.sendMessage(chatId, "Zaznamenan pohyb!", "");
+    bot.sendMessage(chatId, "Zaznamenán pohyb!", "");
     Serial.println("Motion Detected");
     sendPhotoTelegram();
     motionDetected = false;
@@ -283,7 +283,7 @@ void handleNewMessages(int numNewMessages){
     // Chat id of the requester
     String chat_id = String(bot.messages[i].chat_id);
     if (chat_id != chatId){
-      bot.sendMessage(chat_id, "Neznamy uzivatel", "");
+      bot.sendMessage(chat_id, "Neznámý uživatel", "");
       continue;
     }
     
@@ -306,12 +306,12 @@ void handleNewMessages(int numNewMessages){
       bot.sendMessage(chatId, readings, "");
     }
     if (text == "/start"){
-      String welcome = "Vitej, jsem ESP32-CAM Telegram bot.\n";
-      welcome += "Zde jsou nejake prikazy, ktere ovladam.\n\n";
-      welcome += "/photo : vyfotim fotku\n";
-      welcome += "/flash : zapnu LED svetlo\n";
-      welcome += "/teplota : vypisu teplotu a vlhkost\n\n";
-      welcome += "Kdykoliv zaznamenam pohyb, poslu ti fotku.\n";
+      String welcome = "Vítej, jsem ESP32-CAM Telegram bot.\n";
+      welcome += "Zde jsou příkazy, které ovládám.\n\n";
+      welcome += "/photo : vyfotím fotku\n";
+      welcome += "/flash : zapnu LED světlo\n";
+      welcome += "/teplota : vypíšu teplotu a vlhkost\n\n";
+      welcome += "Kdykoliv zaznamenám pohyb, pošlu ti fotku.\n";
       bot.sendMessage(chatId, welcome, "Markdown");
     }
   }
