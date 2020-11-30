@@ -9,7 +9,7 @@ Projekt jsem si vybral z důvodu, že mě baví stavět takové věci a dávat t
 - ESP-32 CAM
 - BME280
 - FTDI programmer
-- HC-SR505
+- AM312
 
 # Inspirace
 
