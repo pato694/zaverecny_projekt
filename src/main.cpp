@@ -9,8 +9,8 @@
 #include "SparkFunBME280.h"
 
 // Wifi connection
-const char* ssid = "DOHNALM";
-const char* password = "23.09.1972Md.";
+const char* ssid = "xxxxxxxx";
+const char* password = "xxxxxxxxxx";
 
 // Id to chat with bot
 String chatId = "xxxxxxxxx";
