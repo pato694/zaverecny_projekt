@@ -7,7 +7,7 @@ Projekt jsem si vybral z důvodu, že mě baví stavět takové věci a dávat t
 # Součástky
 
 - ESP-32 CAM
-- FTDI programmer
+- Arduino nano
 - AM312
 
 # Inspirace
