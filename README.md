@@ -1,4 +1,4 @@
-# ESP-32 CAM motion detection & BME280 temperature, humidity
+# ESP-32 CAM motion detection
 
 # Proč tenhle projekt?
 
@@ -7,7 +7,6 @@ Projekt jsem si vybral z důvodu, že mě baví stavět takové věci a dávat t
 # Součástky
 
 - ESP-32 CAM
-- BME280
 - FTDI programmer
 - AM312
 
