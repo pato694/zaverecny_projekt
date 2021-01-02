@@ -9,19 +9,14 @@
 #include "SparkFunBME280.h"
 
 // Wifi connection
-<<<<<<< HEAD
-const char* ssid = "xxxxxxxx";
-const char* password = "xxxxxxxxxx";
-=======
 const char *ssid = "DOHNALM";
 const char *password = "23.09.1972Md.";
->>>>>>> on/off detection
 
 // Id to chat with bot
-String chatId = "xxxxxxxxx";
+String chatId = "1482264689";
 
 // Initialize Telegram BOT
-String BOTtoken = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+String BOTtoken = "1463258443:AAG3CZn8XDMQs7bqG45iL472KoZsfylVCJY";
 
 bool sendPhoto = false;
 
