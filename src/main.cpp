@@ -9,8 +9,13 @@
 #include "SparkFunBME280.h"
 
 // Wifi connection
+<<<<<<< HEAD
 const char* ssid = "xxxxxxxx";
 const char* password = "xxxxxxxxxx";
+=======
+const char *ssid = "DOHNALM";
+const char *password = "23.09.1972Md.";
+>>>>>>> on/off detection
 
 // Id to chat with bot
 String chatId = "xxxxxxxxx";
@@ -20,28 +25,30 @@ String BOTtoken = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
 bool sendPhoto = false;
 
+bool motionDetectEnable = false;
+
 WiFiClientSecure clientTCP;
 
 UniversalTelegramBot bot(BOTtoken, clientTCP);
 
 //CAMERA_MODEL_AI_THINKER
-#define PWDN_GPIO_NUM     32
-#define RESET_GPIO_NUM    -1
-#define XCLK_GPIO_NUM      0
-#define SIOD_GPIO_NUM     26
-#define SIOC_GPIO_NUM     27
+#define PWDN_GPIO_NUM 32
+#define RESET_GPIO_NUM -1
+#define XCLK_GPIO_NUM 0
+#define SIOD_GPIO_NUM 26
+#define SIOC_GPIO_NUM 27
 
-#define Y9_GPIO_NUM       35
-#define Y8_GPIO_NUM       34
-#define Y7_GPIO_NUM       39
-#define Y6_GPIO_NUM       36
-#define Y5_GPIO_NUM       21
-#define Y4_GPIO_NUM       19
-#define Y3_GPIO_NUM       18
-#define Y2_GPIO_NUM        5
-#define VSYNC_GPIO_NUM    25
-#define HREF_GPIO_NUM     23
-#define PCLK_GPIO_NUM     22
+#define Y9_GPIO_NUM 35
+#define Y8_GPIO_NUM 34
+#define Y7_GPIO_NUM 39
+#define Y6_GPIO_NUM 36
+#define Y5_GPIO_NUM 21
+#define Y4_GPIO_NUM 19
+#define Y3_GPIO_NUM 18
+#define Y2_GPIO_NUM 5
+#define VSYNC_GPIO_NUM 25
+#define HREF_GPIO_NUM 23
+#define PCLK_GPIO_NUM 22
 
 #define FLASH_LED_PIN 4
 bool flashState = LOW;
@@ -54,33 +61,36 @@ bool motionDetected = false;
 #define I2C_SCL 15
 
 BME280 bme;
- 
-int botRequestDelay = 1000;   // mean time between scan messages
-long lastTimeBotRan;     // last time messages' scan has been done
+
+int botRequestDelay = 1000; // mean time between scan messages
+long lastTimeBotRan;        // last time messages' scan has been done
 
 void handleNewMessages(int numNewMessages);
 String sendPhotoTelegram();
 
 // Get BME280 sensor readings and return them as a String variable
-String getReadings(){
+String getReadings()
+{
   float temperature, humidity;
   temperature = bme.readTempC();
   humidity = bme.readFloatHumidity();
   String message = "Teplota: " + String(temperature) + " ºC \n";
-  message += "Vlhkost: " + String (humidity) + " % \n";
+  message += "Vlhkost: " + String(humidity) + " % \n";
   return message;
 }
 
 // Indicates when motion is detected
-static void IRAM_ATTR detectsMovement(void * arg){
+static void IRAM_ATTR detectsMovement(void *arg)
+{
   Serial.println("Motion detected.");
   motionDetected = true;
 }
 
-void setup() {
-  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); 
+void setup()
+{
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
   Serial.begin(115200);
-  
+
   pinMode(FLASH_LED_PIN, OUTPUT);
   digitalWrite(FLASH_LED_PIN, flashState);
 
@@ -95,13 +105,14 @@ void setup() {
   bme.settings.pressOverSample = 1;
   bme.settings.humidOverSample = 1;
   bme.begin();
-  
+
   WiFi.mode(WIFI_STA);
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
-  WiFi.begin(ssid, password);  
-  while (WiFi.status() != WL_CONNECTED) {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
     Serial.print(".");
     delay(500);
   }
@@ -132,57 +143,68 @@ void setup() {
   config.pixel_format = PIXFORMAT_JPEG;
 
   //init with high specs to pre-allocate larger buffers
-  if(psramFound()){
+  if (psramFound())
+  {
     config.frame_size = FRAMESIZE_UXGA;
-    config.jpeg_quality = 10;  //0-63 lower number means higher quality
+    config.jpeg_quality = 10; //0-63 lower number means higher quality
     config.fb_count = 2;
-  } else {
+  }
+  else
+  {
     config.frame_size = FRAMESIZE_SVGA;
-    config.jpeg_quality = 12;  //0-63 lower number means higher quality
+    config.jpeg_quality = 12; //0-63 lower number means higher quality
     config.fb_count = 1;
   }
-  
+
   // camera init
   esp_err_t err = esp_camera_init(&config);
-  if (err != ESP_OK) {
+  if (err != ESP_OK)
+  {
     Serial.printf("Camera init failed with error 0x%x", err);
     delay(1000);
     ESP.restart();
   }
 
   // Drop down frame size for higher initial frame rate
-  sensor_t * s = esp_camera_sensor_get();
-  s->set_framesize(s, FRAMESIZE_CIF);  // UXGA|SXGA|XGA|SVGA|VGA|CIF|QVGA|HQVGA|QQVGA
+  sensor_t *s = esp_camera_sensor_get();
+  s->set_framesize(s, FRAMESIZE_CIF); // UXGA|SXGA|XGA|SVGA|VGA|CIF|QVGA|HQVGA|QQVGA
 
   // PIR Motion Sensor mode INPUT_PULLUP
-  //err = gpio_install_isr_service(0); 
-  err = gpio_isr_handler_add(GPIO_NUM_13, &detectsMovement, (void *) 13);  
-  if (err != ESP_OK){
-    Serial.printf("handler add failed with error 0x%x \r\n", err); 
+  //err = gpio_install_isr_service(0);
+  err = gpio_isr_handler_add(GPIO_NUM_13, &detectsMovement, (void *)13);
+  if (err != ESP_OK)
+  {
+    Serial.printf("handler add failed with error 0x%x \r\n", err);
   }
   err = gpio_set_intr_type(GPIO_NUM_13, GPIO_INTR_POSEDGE);
-  if (err != ESP_OK){
+  if (err != ESP_OK)
+  {
     Serial.printf("set intr type failed with error 0x%x \r\n", err);
   }
 }
 
-void loop() {
-  if (sendPhoto){
+void loop()
+{
+  if (sendPhoto)
+  {
     Serial.println("Preparing photo");
-    sendPhotoTelegram(); 
-    sendPhoto = false; 
+    sendPhotoTelegram();
+    sendPhoto = false;
   }
 
-  if(motionDetected){
+  if (motionDetected && motionDetectEnable)
+  {
     bot.sendMessage(chatId, "Zaznamenán pohyb!", "");
     Serial.println("Motion Detected");
     sendPhotoTelegram();
     motionDetected = false;
   }
-  
-  if (millis() > lastTimeBotRan + botRequestDelay){
+
+  if (millis() > lastTimeBotRan + botRequestDelay)
+  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-    while (numNewMessages){
+    while (numNewMessages)
+    {
       Serial.println("got response");
       handleNewMessages(numNewMessages);
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
@@ -191,127 +213,161 @@ void loop() {
   }
 }
 
-String sendPhotoTelegram(){
-  const char* myDomain = "api.telegram.org";
+String sendPhotoTelegram()
+{
+  const char *myDomain = "api.telegram.org";
   String getAll = "";
   String getBody = "";
 
-  camera_fb_t * fb = NULL;
-  fb = esp_camera_fb_get();  
-  if(!fb) {
+  camera_fb_t *fb = NULL;
+  fb = esp_camera_fb_get();
+  if (!fb)
+  {
     Serial.println("Camera capture failed");
     delay(1000);
     ESP.restart();
     return "Camera capture failed";
-  }  
-  
+  }
+
   Serial.println("Connect to " + String(myDomain));
 
-  if (clientTCP.connect(myDomain, 443)) {
+  if (clientTCP.connect(myDomain, 443))
+  {
     Serial.println("Connection successful");
-    
+
     String head = "--RandomNerdTutorials\r\nContent-Disposition: form-data; name=\"chat_id\"; \r\n\r\n" + chatId + "\r\n--RandomNerdTutorials\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"esp32-cam.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n";
     String tail = "\r\n--RandomNerdTutorials--\r\n";
 
     uint16_t imageLen = fb->len;
     uint16_t extraLen = head.length() + tail.length();
     uint16_t totalLen = imageLen + extraLen;
-  
-    clientTCP.println("POST /bot"+BOTtoken+"/sendPhoto HTTP/1.1");
+
+    clientTCP.println("POST /bot" + BOTtoken + "/sendPhoto HTTP/1.1");
     clientTCP.println("Host: " + String(myDomain));
     clientTCP.println("Content-Length: " + String(totalLen));
     clientTCP.println("Content-Type: multipart/form-data; boundary=RandomNerdTutorials");
     clientTCP.println();
     clientTCP.print(head);
-  
+
     uint8_t *fbBuf = fb->buf;
     size_t fbLen = fb->len;
-    for (size_t n=0;n<fbLen;n=n+1024) {
-      if (n+1024<fbLen) {
+    for (size_t n = 0; n < fbLen; n = n + 1024)
+    {
+      if (n + 1024 < fbLen)
+      {
         clientTCP.write(fbBuf, 1024);
         fbBuf += 1024;
       }
-      else if (fbLen%1024>0) {
-        size_t remainder = fbLen%1024;
+      else if (fbLen % 1024 > 0)
+      {
+        size_t remainder = fbLen % 1024;
         clientTCP.write(fbBuf, remainder);
       }
-    }  
-    
+    }
+
     clientTCP.print(tail);
-    
+
     esp_camera_fb_return(fb);
-    
-    int waitTime = 10000;   // timeout 10 seconds
+
+    int waitTime = 10000; // timeout 10 seconds
     long startTimer = millis();
     boolean state = false;
-    
-    while ((startTimer + waitTime) > millis()){
+
+    while ((startTimer + waitTime) > millis())
+    {
       Serial.print(".");
-      delay(100);      
-      while (clientTCP.available()){
-          char c = clientTCP.read();
-          if (c == '\n'){
-            if (getAll.length()==0) state=true; 
-            getAll = "";
-          } 
-          else if (c != '\r'){
-            getAll += String(c);
-          }
-          if (state==true){
-            getBody += String(c);
-          }
-          startTimer = millis();
-       }
-       if (getBody.length()>0) break;
+      delay(100);
+      while (clientTCP.available())
+      {
+        char c = clientTCP.read();
+        if (c == '\n')
+        {
+          if (getAll.length() == 0)
+            state = true;
+          getAll = "";
+        }
+        else if (c != '\r')
+        {
+          getAll += String(c);
+        }
+        if (state == true)
+        {
+          getBody += String(c);
+        }
+        startTimer = millis();
+      }
+      if (getBody.length() > 0)
+        break;
     }
     clientTCP.stop();
     Serial.println(getBody);
   }
-  else {
-    getBody="Connection to api.telegram.org failed.";
+  else
+  {
+    getBody = "Connection to api.telegram.org failed.";
     Serial.println("Connection to api.telegram.org failed.");
   }
   return getBody;
 }
 
-
-void handleNewMessages(int numNewMessages){
+void handleNewMessages(int numNewMessages)
+{
   Serial.print("Handle New Messages: ");
   Serial.println(numNewMessages);
 
-  for (int i = 0; i < numNewMessages; i++){
+  for (int i = 0; i < numNewMessages; i++)
+  {
     // Chat id of the requester
     String chat_id = String(bot.messages[i].chat_id);
-    if (chat_id != chatId){
+    if (chat_id != chatId)
+    {
       bot.sendMessage(chat_id, "Neznámý uživatel", "");
       continue;
     }
-    
+
     // Print the received message
     String text = bot.messages[i].text;
     Serial.println(text);
 
     String fromName = bot.messages[i].from_name;
 
-    if (text == "/flash") {
+    if (text == "/flash")
+    {
       flashState = !flashState;
       digitalWrite(FLASH_LED_PIN, flashState);
     }
-    if (text == "/photo") {
+    if (text == "/photo")
+    {
       sendPhoto = true;
       Serial.println("New photo  request");
     }
-    if (text == "/teplota"){
+    if (text == "/teplota")
+    {
       String readings = getReadings();
       bot.sendMessage(chatId, readings, "");
     }
-    if (text == "/start"){
+    if (text == "/mon")
+    {
+      String detectionOn = ("Detekce pohybu je zapnutá.");
+      motionDetectEnable = true;
+      bot.sendMessage(chatId, detectionOn, "");
+    }
+    if (text == "/moff")
+    {
+      String detectionOff = ("Detekce pohybu je vypnutá.");
+      motionDetectEnable = false;
+      bot.sendMessage(chatId, detectionOff, "");
+    }
+    if (text == "/start")
+    {
       String welcome = "Vítej, jsem ESP32-CAM Telegram bot.\n";
       welcome += "Zde jsou příkazy, které ovládám.\n\n";
       welcome += "/photo : vyfotím fotku\n";
       welcome += "/flash : zapnu LED světlo\n";
+      welcome += "/mon : zapnu detekci pohybu\n";
+      welcome += "/moff : vypnu detekci pohybu\n";
       welcome += "/teplota : vypíšu teplotu a vlhkost\n\n";
-      welcome += "Kdykoliv zaznamenám pohyb, pošlu ti fotku.\n";
+      welcome += "Když zaznamenám pohyb, pošlu ti fotku.\n";
       bot.sendMessage(chatId, welcome, "Markdown");
     }
   }
