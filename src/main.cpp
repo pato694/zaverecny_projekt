@@ -343,17 +343,17 @@ void handleNewMessages(int numNewMessages)
     }
     if (text == "/mon")
     {
-      String detectionOn = ("Detekce pohybu je zapnutá.");
+      String detectionOn = ("Detekce pohybu je zapnuta.");
       motionDetectEnable = true;
       bot.sendMessage(chatId, detectionOn, "");
     }
     if (text == "/moff")
     {
-      String detectionOff = ("Detekce pohybu je vypnutá.");
+      String detectionOff = ("Detekce pohybu je vypnuta.");
       motionDetectEnable = false;
       bot.sendMessage(chatId, detectionOff, "");
     }
-    if (text == "/start")
+    if (text == "/start") 
     {
       String welcome = "Vítej, jsem ESP32-CAM Telegram bot.\n";
       welcome += "Zde jsou příkazy, které ovládám.\n\n";
