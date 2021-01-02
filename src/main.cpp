@@ -13,10 +13,10 @@ const char *ssid = "DOHNALM";
 const char *password = "23.09.1972Md.";
 
 // Id to chat with bot
-String chatId = "1482264689";
+String chatId = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
 // Initialize Telegram BOT
-String BOTtoken = "1463258443:AAG3CZn8XDMQs7bqG45iL472KoZsfylVCJY";
+String BOTtoken = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
 bool sendPhoto = false;
 
