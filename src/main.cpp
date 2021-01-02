@@ -343,13 +343,13 @@ void handleNewMessages(int numNewMessages)
     }
     if (text == "/mon")
     {
-      String detectionOn = ("Detekce pohybu je zapnuta.");
+      String detectionOn = ("Detekce pohybu je zapnutá");
       motionDetectEnable = true;
       bot.sendMessage(chatId, detectionOn, "");
     }
     if (text == "/moff")
     {
-      String detectionOff = ("Detekce pohybu je vypnuta.");
+      String detectionOff = ("Detekce pohybu je vypnutá.");
       motionDetectEnable = false;
       bot.sendMessage(chatId, detectionOff, "");
     }
